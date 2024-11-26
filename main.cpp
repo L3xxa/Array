@@ -11,7 +11,7 @@ int main() {
         sum_profit[i] = profit;
     }
 
-    cout << "Income for 6 months ="
+    cout << "Income for 6 months = "
     << sum_profit[0] + sum_profit[1]
     + sum_profit[2] + sum_profit[3]
     + sum_profit[4] + sum_profit[5] << endl;
