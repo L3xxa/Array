@@ -3,12 +3,12 @@ using namespace std;
 
 int main() {
 
-    int arr[4];
+    int massive [] = {1, 2, 3, 4, 5, 6, 7};
 
-    arr[0] = 5;
-    arr[1] = 10;
+    for (int i = 6; i >= 0; i--) {
+        cout << massive[i] << " " ;
+    }
 
-    cout << arr[0] << endl;
-
+    return 0;
 
 }
