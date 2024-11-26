@@ -3,12 +3,18 @@ using namespace std;
 
 int main() {
 
-    int arr[4];
+    int storona;
+    int const SIZE = 5;
+    int arr[SIZE];
 
-    arr[0] = 5;
-    arr[1] = 10;
+    for (int i = 0; i < SIZE; i++) {
+        cout << "Enter the side of the square: ";
+        cin >> storona;
+        arr[i] = storona;
+    }
 
-    cout << arr[0] << endl;
+    cout << "Perimeter = "
+    << arr[0] + arr[1] + arr[2] + arr[3] + arr[4] << endl;
 
-
+    return 0;
 }
