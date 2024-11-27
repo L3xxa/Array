@@ -4,69 +4,74 @@
 using namespace std;
 
 int main() {
-
     constexpr int SIZE = 10;
-    int masive [SIZE];
+    int masive[SIZE];
 
     random_device rd;
     mt19937 mersenne(rd());
     uniform_int_distribution<> uid(-10, 10);
 
-
+    cout << "Array elements: ";
     for (int i = 0; i < SIZE; ++i) {
         masive[i] = uid(mersenne);
         cout << masive[i] << " ";
     }
-    cout << endl;
-    cout << endl;
+    cout << endl << endl;
 
-    int negative = 0;
+    int negative_sum = 0;
     for (int i = 0; i < SIZE; i++) {
         if (masive[i] < 0) {
-            negative += masive[i];
+            negative_sum += masive[i];
         }
     }
-    cout << "The first condition" << endl;
-    cout << "Negative numbers: " << negative << endl;
-    cout << endl;
+    cout << "\033[32mThe first condition\033[0m" << endl;
+    cout << "Sum of negative numbers: " << negative_sum << endl << endl;
 
-    cout << "The second condition" << endl;
-    int min_value = *min_element(masive, masive + SIZE);
-    cout << "Min value: " << min_value << endl;
-    int max_value = *max_element(masive, masive + SIZE);
-    cout << "Max value: " << max_value << endl;
+    cout << "\033[32mThe second condition\033[0m" << endl;
+    int min_index = min_element(masive, masive + SIZE) - masive;
+    int max_index = max_element(masive, masive + SIZE) - masive;
 
+    cout << "Min value: " << masive[min_index] << " at index " << min_index << endl;
+    cout << "Max value: " << masive[max_index] << " at index " << max_index << endl;
 
-    int count = 1;
-    for (int i = min_value; i <= max_value; i++) {
-        if (i == 0) {
-            continue;
-        }
-        count *= i;
+    if (min_index > max_index) {
+        swap(min_index, max_index);
     }
-    cout << "Min --> Max = " << count << endl;
-    cout << endl;
 
-    cout << "The third condition" << endl;
-    int even = 1;
+    int product_between = 1;
+    for (int i = min_index; i <= max_index; i++) {
+        if (masive[i] != 0) {
+            product_between *= masive[i];
+        }
+    }
+    cout << "Product of elements between Min and Max indices (inclusive): " << product_between << endl << endl;
+
+    cout << "\033[32mThe third condition\033[0m" << endl;
+    int even_product = 1;
+    bool has_even = false;
     for (int i = 0; i < SIZE; i++) {
         if (masive[i] != 0 && masive[i] % 2 == 0) {
-            even *= masive[i];
+            even_product *= masive[i];
+            has_even = true;
         }
     }
-    cout << "The product of even number = " << even << endl;
+    if (has_even) {
+        cout << "Product of even numbers: " << even_product << endl;
+    } else {
+        cout << "No even numbers found." << endl;
+    }
     cout << endl;
 
-    cout << "The fourth condition" << endl;
-    int first_negative_index = 0;
-    int last_negative_index = 0;
+    cout << "\033[32mThe fourth condition\033[0m" << endl;
+    int first_negative_index = -1;
+    int last_negative_index = -1;
+
     for (int i = 0; i < SIZE; i++) {
-        if (masive [i] < 0) {
+        if (masive[i] < 0) {
             first_negative_index = i;
             break;
         }
     }
-    cout << "The first negative index = " << first_negative_index << endl;
 
     for (int i = SIZE - 1; i >= 0; i--) {
         if (masive[i] < 0) {
@@ -74,13 +79,18 @@ int main() {
             break;
         }
     }
-    cout << "The last negative index = " << last_negative_index << endl;
 
-    int sum_index = 0;
-    for (int i = first_negative_index + 1; i < last_negative_index - 1; i++) {
-        sum_index += masive[i];
+    if (first_negative_index != -1 && last_negative_index != -1 && first_negative_index < last_negative_index) {
+        int sum_between_negatives = 0;
+        for (int i = first_negative_index + 1; i < last_negative_index; i++) {
+            sum_between_negatives += masive[i];
+        }
+        cout << "First negative index: " << first_negative_index << endl;
+        cout << "Last negative index: " << last_negative_index << endl;
+        cout << "Sum of elements between first and last negative indices: " << sum_between_negatives << endl;
+    } else {
+        cout << "Not enough negative numbers for calculation." << endl;
     }
-    cout << "The sum elements = " << sum_index << endl;
 
     return 0;
 }
